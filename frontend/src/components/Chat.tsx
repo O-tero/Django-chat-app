@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 export function Chat() {
+  const { conversationName } = useParams();
+  const { user } = useContext(AuthContext);
   const [welcomeMessage, setWelcomeMessage] = useState("");
-  const [messageHistory, setMessageHistory] = useState < any > [];
+  const [messageHistory, setMessageHistory] = useState<MessageModel[]>([]);
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
 
-  const { readyState, sendJsonMessage } = useWebSocket
-    (user ? "ws://127.0.0.1:8000/" : null, {
+   const { readyState, sendJsonMessage } = useWebSocket(
+    user ? `ws://127.0.0.1:8000/chats/${conversationName}/` : null,
+    {
       queryParams: {
-      token: user ? user.token : "",
-    },
+        token: user ? user.token : "",
+      },
     onOpen: () => {
       console.log("Connected!");
     },
@@ -29,7 +34,7 @@ export function Chat() {
           setMessageHistory((prev: any) => prev.concat(data));
           break;
         default:
-          bash.error("Unknown message type!");
+          console.error("Unknown message type!");
           break;
       }
     }

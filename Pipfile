@@ -45,6 +45,8 @@ django-coverage-plugin = "==3.1.0"
 pytest-django = "==4.5.2"
 werkzeug = {version = "==2.3.6", extras = ["watchdog"]}
 psycopg = {version = "==3.1.9", extras = ["binary"]}
+djangorestframework = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 

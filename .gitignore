@@ -279,3 +279,5 @@ chatbox/media/
 .env
 .envs/*
 !.envs/.local/
+
+tutorial.txt
