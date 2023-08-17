@@ -1,8 +1,8 @@
 // Provides helper function to format headers for authenticated requests.
 
-import { AxiosRequestHeaders } from "axios";
+import { AxiosRequestHeaders, RawAxiosRequestHeaders } from "axios";
 
-export default function authHeader(): AxiosRequestHeaders {
+export default function authHeader(): RawAxiosRequestHeaders {
   const localstorageUser = localStorage.getItem("user");
   if (!localstorageUser) {
     return {};

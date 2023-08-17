@@ -1,16 +1,16 @@
-import axios, { AxiosInstance } from "axios";
 import React, { createContext, ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios, { AxiosInstance } from "axios";
 
-import { UserModel } from "../models/User";
 import authHeader from "../services/AuthHeader";
 import AuthService from "../services/AuthService";
+import { UserModel } from "../models/User";
 
 const DefaultProps = {
   login: () => null,
   logout: () => null,
   authAxios: axios,
-  user: null
+  user: null,
 };
 
 export interface AuthProps {
@@ -22,7 +22,9 @@ export interface AuthProps {
 
 export const AuthContext = createContext<AuthProps>(DefaultProps);
 
-export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(() => AuthService.getCurrentUser());
 
@@ -44,6 +46,8 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   // request interceptor for adding token
   authAxios.interceptors.request.use((config) => {
     // add token to request headers
+    // TODO: axios bug workaround, ref: https://github.com/axios/axios/issues/5034
+    // @ts-expect-error
     config.headers = authHeader();
     return config;
   });
