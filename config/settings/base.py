@@ -48,7 +48,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
-        default="postgres://postgres:13jdrew$4241@127.0.0.1:5432/chatbox",
+        default="postgres://postgres:13jdrew@127.0.0.1:5432/chatbox",
     ),
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
